@@ -1,38 +1,36 @@
-import React from "react";
-import "./App.css";
+import React, { Component } from "react";
 
 import { Switch, Route } from "react-router-dom";
 
-import HomePage from "../src/pages/homepage/homePage.component";
-import ShopPage from "../src/pages/shop/shop.component";
-import SignInAndSignUp from "../src/pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
-import Header from "../src/components/header/header.component";
+import "./App.css";
+import HomePage from "./pages/HomePage/HomePage.component";
+import ShopPage from "./pages/Shop/shop.component";
+import SignInAndSignUp from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
+import Header from "./components/header/header.component";
 import { auth } from "./firebase/firebase.utils";
 
-class App extends React.Component {
-  constructor() {
-    super();
+class App extends Component {
+  state = {
+    currentUser: null,
+  };
 
-    this.state = {
-      currentUser: null
-    };
-  }
-
-  unsubscribeFromAuth = null;
+  unSubscribeFromAuth = null;
 
   componentDidMount() {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
+    this.unSubscribeFromAuth = auth.onAuthStateChanged((user) => {
       this.setState({ currentUser: user });
+
       console.log(user);
     });
   }
 
   componentWillUnmount() {
-    this.unsubscribeFromAuth();
+    this.unSubscribeFromAuth();
   }
+
   render() {
     return (
-      <div>
+      <div className="App">
         <Header currentUser={this.state.currentUser} />
         <Switch>
           <Route exact path="/" component={HomePage} />
