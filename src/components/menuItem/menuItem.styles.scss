@@ -41,6 +41,15 @@
     height: 380px;
   }
 
+  @media (max-width: 800px) {
+    .menu-item {
+      height: 200px;
+    }
+    &.large {
+      height: 240px;
+    }
+  }
+
   .content {
     height: 90px;
     padding: 0 25px;
